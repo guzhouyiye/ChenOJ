@@ -42,7 +42,8 @@ const router = useRouter();
 const store = useStore();
 
 /**
- * 表单信息
+ * 提交表单
+ * @param data
  */
 const handleSubmit = async () => {
   const res = await UserControllerService.userLoginUsingPost(form);
