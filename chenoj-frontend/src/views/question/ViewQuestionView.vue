@@ -107,7 +107,7 @@ const form = ref<QuestionSubmitAddRequest>({
  * 提交代码
  */
 const doSubmit = async () => {
-  if(!question.value?.id) {
+  if (!question.value?.id) {
     return;
   }
   const res = await QuestionSubmitControllerService.doQuestionSubmitUsingPost({
