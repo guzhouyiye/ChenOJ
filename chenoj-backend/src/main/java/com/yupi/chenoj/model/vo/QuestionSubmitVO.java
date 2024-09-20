@@ -3,7 +3,7 @@ package com.yupi.chenoj.model.vo;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.yupi.chenoj.model.dto.questionsubmit.JudgeInfo;
+import com.yupi.chenoj.judge.codesandbox.model.JudgeInfo;
 import com.yupi.chenoj.model.entity.QuestionSubmit;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

@@ -3,9 +3,8 @@ package com.yupi.chenoj.judge.codesandbox.impl;
 import com.yupi.chenoj.judge.codesandbox.CodeSandbox;
 import com.yupi.chenoj.judge.codesandbox.model.ExecuteCodeResponse;
 import com.yupi.chenoj.judge.codesandbox.model.ExecuteCodeRequest;
-import com.yupi.chenoj.model.dto.questionsubmit.JudgeInfo;
+import com.yupi.chenoj.judge.codesandbox.model.JudgeInfo;
 import com.yupi.chenoj.model.enums.JudgeInfoMessageEnum;
-import com.yupi.chenoj.model.enums.QuestionSubmitLanguageEnum;
 import com.yupi.chenoj.model.enums.QuestionSubmitStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 
