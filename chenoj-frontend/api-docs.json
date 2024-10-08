@@ -29,10 +29,6 @@
       "x-order": "2147483647"
     },
     {
-      "name": "question-submit-controller",
-      "x-order": "2147483647"
-    },
-    {
       "name": "user-controller",
       "x-order": "2147483647"
     },
@@ -1701,81 +1697,10 @@
         "x-order": "2147483647"
       }
     },
-    "/api/question/update": {
+    "/api/question/question_submit/do": {
       "post": {
         "tags": [
           "question-controller"
-        ],
-        "summary": "updateQuestion",
-        "operationId": "updateQuestionUsingPOST",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "questionUpdateRequest",
-            "description": "questionUpdateRequest",
-            "required": true,
-            "schema": {
-              "originalRef": "QuestionUpdateRequest",
-              "$ref": "#/definitions/QuestionUpdateRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "originalRef": "BaseResponse«boolean»",
-              "$ref": "#/definitions/BaseResponse«boolean»"
-            }
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "responsesObject": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "originalRef": "BaseResponse«boolean»",
-              "$ref": "#/definitions/BaseResponse«boolean»"
-            }
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "deprecated": false,
-        "x-order": "2147483647"
-      }
-    },
-    "/api/question_submit/": {
-      "post": {
-        "tags": [
-          "question-submit-controller"
         ],
         "summary": "doQuestionSubmit",
         "operationId": "doQuestionSubmitUsingPOST",
@@ -1843,10 +1768,10 @@
         "x-order": "2147483647"
       }
     },
-    "/api/question_submit/list/page": {
+    "/api/question/question_submit/list/page": {
       "post": {
         "tags": [
-          "question-submit-controller"
+          "question-controller"
         ],
         "summary": "listQuestionSubmitByPage",
         "operationId": "listQuestionSubmitByPageUsingPOST",
@@ -1895,6 +1820,77 @@
             "schema": {
               "originalRef": "BaseResponse«Page«QuestionSubmitVO»»",
               "$ref": "#/definitions/BaseResponse«Page«QuestionSubmitVO»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "x-order": "2147483647"
+      }
+    },
+    "/api/question/update": {
+      "post": {
+        "tags": [
+          "question-controller"
+        ],
+        "summary": "updateQuestion",
+        "operationId": "updateQuestionUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "questionUpdateRequest",
+            "description": "questionUpdateRequest",
+            "required": true,
+            "schema": {
+              "originalRef": "QuestionUpdateRequest",
+              "$ref": "#/definitions/QuestionUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "BaseResponse«boolean»",
+              "$ref": "#/definitions/BaseResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "responsesObject": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "BaseResponse«boolean»",
+              "$ref": "#/definitions/BaseResponse«boolean»"
             }
           },
           "201": {

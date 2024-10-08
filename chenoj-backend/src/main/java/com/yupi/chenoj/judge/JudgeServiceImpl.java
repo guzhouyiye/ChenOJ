@@ -34,7 +34,7 @@ public class JudgeServiceImpl implements JudgeService {
     @Resource
     private JudgeManager judgeManager;
 
-    @Value("example")
+    @Value("remote")
     private String type;
 
     @Override
