@@ -1,7 +1,7 @@
 package com.chen.chenoj.mapper;
 
-import com.chen.chenoj.chenoj.mapper.PostMapper;
-import com.chen.chenoj.chenoj.model.entity.Post;
+
+import com.chen.chenoj.model.entity.Post;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,9 +12,6 @@ import java.util.List;
 
 /**
  * 帖子数据库操作测试
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @SpringBootTest
 class PostMapperTest {

@@ -1,7 +1,7 @@
 # SpringBoot 项目初始模板
 
-> 作者：[程序员鱼皮](https://github.com/liyupi)
-> 仅分享于 [编程导航知识星球](https://yupi.icu)
+> 作者：[程序员鱼皮](https://github.com/li)
+> 仅分享于 [编程导航知识星球](https://.icu)
 
 基于 Java SpringBoot 的项目初始模板，整合了常用框架和主流业务的示例代码。
 
@@ -74,7 +74,7 @@
 
 ## 快速上手
 
-> 所有需要修改的地方鱼皮都标记了 `todo`，便于大家找到修改的位置~
+> 所有需要修改的地方都标记了 `todo`，便于大家找到修改的位置~
 
 ### MySQL 数据库
 
@@ -172,7 +172,7 @@ PUT post_v1
 
 ```
 // 指定生成参数
-String packageName = "com.yupi.chenoj";
+String packageName = "com.chen.chenoj";
 String dataName = "用户评论";
 String dataKey = "userComment";
 String upperDataKey = "UserComment";

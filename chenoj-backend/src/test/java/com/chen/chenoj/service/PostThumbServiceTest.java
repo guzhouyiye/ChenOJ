@@ -1,7 +1,7 @@
 package com.chen.chenoj.service;
 
-import com.chen.chenoj.chenoj.model.entity.User;
-import com.chen.chenoj.chenoj.service.PostThumbService;
+
+import com.chen.chenoj.model.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,9 +11,6 @@ import javax.annotation.Resource;
 
 /**
  * 帖子点赞服务测试
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @SpringBootTest
 class PostThumbServiceTest {

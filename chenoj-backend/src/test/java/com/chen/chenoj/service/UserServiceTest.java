@@ -1,6 +1,6 @@
 package com.chen.chenoj.service;
 
-import com.chen.chenoj.chenoj.service.UserService;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,9 +9,6 @@ import javax.annotation.Resource;
 
 /**
  * 用户服务测试
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @SpringBootTest
 public class UserServiceTest {
@@ -21,13 +18,13 @@ public class UserServiceTest {
 
     @Test
     void userRegister() {
-        String userAccount = "yupi";
+        String userAccount = "";
         String userPassword = "";
-        String checkPassword = "123456";
+        String checkPassword = "12345678";
         try {
             long result = userService.userRegister(userAccount, userPassword, checkPassword);
             Assertions.assertEquals(-1, result);
-            userAccount = "yu";
+            userAccount = "chengj";
             result = userService.userRegister(userAccount, userPassword, checkPassword);
             Assertions.assertEquals(-1, result);
         } catch (Exception e) {
