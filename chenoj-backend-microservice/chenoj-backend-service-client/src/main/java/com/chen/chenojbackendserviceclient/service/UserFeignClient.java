@@ -51,6 +51,7 @@ public interface UserFeignClient {
         if (currentUser == null || currentUser.getId() == null) {
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
+        // 可以考虑在这里做全局权限校验
         return currentUser;
     }
 
