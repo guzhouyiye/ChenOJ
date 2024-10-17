@@ -1,5 +1,5 @@
 <template>
-  <div id="QuestionsView">
+  <div id="questionsView">
     <a-form :model="searchParams" layout="inline">
       <a-form-item field="title" label="名称" style="min-width: 240px">
         <a-input v-model="searchParams.title" placeholder="请输入名称" />
@@ -162,7 +162,7 @@ const doSubmit = () => {
 </script>
 
 <style scoped>
-#QuestionsView {
+#questionsView {
   max-width: 1280px;
   margin: 0 auto;
 }
