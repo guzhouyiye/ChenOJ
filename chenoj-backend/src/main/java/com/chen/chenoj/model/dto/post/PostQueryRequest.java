@@ -1,7 +1,5 @@
-package com.chen.chenoj.model.dto.question;
+package com.chen.chenoj.model.dto.post;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.chen.chenoj.common.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,12 +12,22 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class QuestionQueryRequest extends PageRequest implements Serializable {
+public class PostQueryRequest extends PageRequest implements Serializable {
 
     /**
      * id
      */
     private Long id;
+
+    /**
+     * id
+     */
+    private Long notId;
+
+    /**
+     * 搜索词
+     */
+    private String searchText;
 
     /**
      * 标题
@@ -37,14 +45,19 @@ public class QuestionQueryRequest extends PageRequest implements Serializable {
     private List<String> tags;
 
     /**
-     * 题目答案
+     * 至少有一个标签
      */
-    private String answer;
+    private List<String> orTags;
 
     /**
      * 创建用户 id
      */
     private Long userId;
+
+    /**
+     * 收藏用户 id
+     */
+    private Long favourUserId;
 
     private static final long serialVersionUID = 1L;
 }

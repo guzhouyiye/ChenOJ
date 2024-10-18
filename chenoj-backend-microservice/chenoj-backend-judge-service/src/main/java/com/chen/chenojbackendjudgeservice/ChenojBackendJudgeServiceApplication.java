@@ -1,6 +1,6 @@
 package com.chen.chenojbackendjudgeservice;
 
-import org.mybatis.spring.annotation.MapperScan;
+import com.chen.chenojbackendjudgeservice.rabbitmq.InitRabbitMq;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -18,6 +18,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ChenojBackendJudgeServiceApplication {
 
     public static void main(String[] args) {
+        // 初始化消息队列
+        InitRabbitMq.doInit();
         SpringApplication.run(ChenojBackendJudgeServiceApplication.class, args);
     }
 
