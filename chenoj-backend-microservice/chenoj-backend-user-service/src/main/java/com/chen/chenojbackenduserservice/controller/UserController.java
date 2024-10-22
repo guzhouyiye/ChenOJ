@@ -228,6 +228,23 @@ public class UserController {
     }
 
     /**
+     * 分页获取用户列表
+     *
+     * @param userQueryRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/list/pagewr")
+    public BaseResponse<Page<User>> listUserByPageWhenRegister(@RequestBody UserQueryRequest userQueryRequest,
+                                                               HttpServletRequest request) {
+        long current = userQueryRequest.getCurrent();
+        long size = userQueryRequest.getPageSize();
+        Page<User> userPage = userService.page(new Page<>(current, size),
+                userService.getQueryWrapper(userQueryRequest));
+        return ResultUtils.success(userPage);
+    }
+
+    /**
      * 分页获取用户封装列表
      *
      * @param userQueryRequest
