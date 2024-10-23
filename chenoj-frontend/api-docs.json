@@ -3931,6 +3931,9 @@
           "type": "string",
           "format": "date-time"
         },
+        "userAccount": {
+          "type": "string"
+        },
         "userId": {
           "type": "integer",
           "format": "int64"
@@ -4042,6 +4045,9 @@
         "title": {
           "type": "string"
         },
+        "userAccount": {
+          "type": "string"
+        },
         "userId": {
           "type": "integer",
           "format": "int64"
@@ -4092,6 +4098,9 @@
         "status": {
           "type": "integer",
           "format": "int32"
+        },
+        "userAccount": {
+          "type": "string"
         },
         "userId": {
           "type": "integer",

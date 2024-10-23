@@ -108,8 +108,8 @@ const columns = [
     dataIndex: "judgeCase",
   },
   {
-    title: "用户id",
-    dataIndex: "userId",
+    title: "创建者",
+    dataIndex: "userAccount",
   },
   {
     title: "创建时间",

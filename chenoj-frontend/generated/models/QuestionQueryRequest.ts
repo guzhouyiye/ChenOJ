@@ -12,6 +12,7 @@ export type QuestionQueryRequest = {
     sortOrder?: string;
     tags?: Array<string>;
     title?: string;
+    userAccount?: string;
     userId?: number;
 };
 

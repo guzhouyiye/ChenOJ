@@ -73,9 +73,11 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         }
         // 是否已提交题目
         long userId = loginUser.getId();
+        String userAccount = loginUser.getUserAccount();
         // 每个用户串行提交题目
         QuestionSubmit questionSubmit = new QuestionSubmit();
         questionSubmit.setUserId(userId);
+        questionSubmit.setUserAccount(userAccount);
         questionSubmit.setQuestionId(questionId);
         questionSubmit.setCode(questionSubmitAddRequest.getCode());
         questionSubmit.setLanguage(language);
@@ -112,6 +114,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         Integer status = questionSubmitQueryRequest.getStatus();
         Long questionId = questionSubmitQueryRequest.getQuestionId();
         Long userId = questionSubmitQueryRequest.getUserId();
+        String userAccount = questionSubmitQueryRequest.getUserAccount();
         String sortField = questionSubmitQueryRequest.getSortField();
         String sortOrder = questionSubmitQueryRequest.getSortOrder();
 
@@ -120,6 +123,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         queryWrapper.eq(StringUtils.isNotBlank(language), "language", language);
         queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "userId", userId);
         queryWrapper.eq(ObjectUtils.isNotEmpty(questionId), "questionId", questionId);
+        queryWrapper.eq(ObjectUtils.isNotEmpty(userAccount), "userAccount", userAccount);
         queryWrapper.eq(QuestionSubmitStatusEnum.getEnumByValue(status) != null, "status", status);
         queryWrapper.eq("isDelete", false);
         queryWrapper.orderBy(SqlUtils.validSortField(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC),
@@ -130,7 +134,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     @Override
     public QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, User loginUser) {
         QuestionSubmitVO questionSubmitVO = QuestionSubmitVO.objToVo(questionSubmit);
-        //脱敏：仅本人和管理员看见自己（提交 userId 和登录用户 id 不同） 提交的代码
+        //脱敏：仅本人和管理员能看见自己（提交 userId 和登录用户 id 不同） 提交的代码
         long userId = loginUser.getId();
         //处理脱敏
         if(userId != questionSubmit.getUserId() && !userService.isAdmin(loginUser)){

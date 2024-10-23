@@ -17,6 +17,7 @@ export type Question = {
     thumbNum?: number;
     title?: string;
     updateTime?: string;
+    userAccount?: string;
     userId?: number;
 };
 

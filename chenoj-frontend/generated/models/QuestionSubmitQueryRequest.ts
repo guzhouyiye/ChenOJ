@@ -10,6 +10,7 @@ export type QuestionSubmitQueryRequest = {
     sortField?: string;
     sortOrder?: string;
     status?: number;
+    userAccount?: string;
     userId?: number;
 };
 

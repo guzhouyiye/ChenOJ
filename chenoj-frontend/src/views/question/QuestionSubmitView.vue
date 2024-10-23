@@ -116,11 +116,11 @@ const columns = [
     dataIndex: "questionId",
   },
   {
-    title: "提交者 id",
-    dataIndex: "userId",
+    title: "用户",
+    dataIndex: "userAccount",
   },
   {
-    title: "创建时间",
+    title: "提交时间",
     slotName: "createTime",
   },
 ];

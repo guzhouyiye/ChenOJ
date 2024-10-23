@@ -79,6 +79,7 @@ public class QuestionController {
         questionService.validQuestion(question, true);
         User loginUser = userService.getLoginUser(request);
         question.setUserId(loginUser.getId());
+        question.setUserAccount(loginUser.getUserAccount());
         question.setFavourNum(0);
         question.setThumbNum(0);
         boolean result = questionService.save(question);
@@ -224,6 +225,7 @@ public class QuestionController {
         }
         User loginUser = userService.getLoginUser(request);
         questionQueryRequest.setUserId(loginUser.getId());
+        questionQueryRequest.setUserAccount(loginUser.getUserAccount());
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
         // 限制爬虫

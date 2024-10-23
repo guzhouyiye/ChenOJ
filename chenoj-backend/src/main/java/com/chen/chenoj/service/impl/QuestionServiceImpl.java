@@ -104,7 +104,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
         String content = questionQueryRequest.getContent();
         List<String> tags = questionQueryRequest.getTags();
         String answer = questionQueryRequest.getAnswer();
-        Long userId = questionQueryRequest.getUserId();
+        String userAccount = questionQueryRequest.getUserAccount();
         String sortField = questionQueryRequest.getSortField();
         String sortOrder = questionQueryRequest.getSortOrder();
 
@@ -118,7 +118,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
             }
         }
         queryWrapper.eq(ObjectUtils.isNotEmpty(id), "id", id);
-        queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "userId", userId);
+        queryWrapper.eq(ObjectUtils.isNotEmpty(userAccount), "userAccount", userAccount);
         queryWrapper.orderBy(SqlUtils.validSortField(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC),
                 sortField);
         return queryWrapper;

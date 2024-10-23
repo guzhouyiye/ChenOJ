@@ -172,8 +172,8 @@ export class UserControllerService {
      * @throws ApiError
      */
     public static listUserByPageWhenRegisterUsingPost(
-      userQueryRequest: { current: number; userAccount: string; pageSize: number }
-    ): CancelablePromise<any> {
+        userQueryRequest: UserQueryRequest,
+    ): CancelablePromise<BaseResponse_Page_User_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/user/list/pagewr',

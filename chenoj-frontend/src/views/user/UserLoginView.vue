@@ -21,7 +21,7 @@
         <a-button type="primary" html-type="submit" style="width: 120px"
           >登录</a-button
         >
-        <a-button type="primary" @click="handleSubmit1" style="width: 120px"
+        <a-button type="primary" @click="jumpToRegister" style="width: 120px"
           >注册</a-button
         >
       </div>
@@ -61,8 +61,8 @@ const handleSubmit = async () => {
     message.error("登录失败，" + res.message);
   }
 };
-
-const handleSubmit1 = async () => {
+// 从登录页跳转到注册页
+const jumpToRegister = async () => {
   router.push({
     path: "/user/register",
     replace: true,
