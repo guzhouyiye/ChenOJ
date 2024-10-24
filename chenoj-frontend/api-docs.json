@@ -4089,6 +4089,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "questionIdStr": {
+          "type": "string"
+        },
         "sortField": {
           "type": "string"
         },
@@ -4134,6 +4137,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "questionIdStr": {
+          "type": "string"
+        },
         "questionVO": {
           "originalRef": "QuestionVO",
           "$ref": "#/definitions/QuestionVO"
@@ -4145,6 +4151,9 @@
         "updateTime": {
           "type": "string",
           "format": "date-time"
+        },
+        "userAccount": {
+          "type": "string"
         },
         "userId": {
           "type": "integer",

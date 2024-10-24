@@ -113,6 +113,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         String language = questionSubmitQueryRequest.getLanguage();
         Integer status = questionSubmitQueryRequest.getStatus();
         Long questionId = questionSubmitQueryRequest.getQuestionId();
+        //String questionIdStr = String.valueOf(questionSubmitQueryRequest.getQuestionId()); // 默认值
         Long userId = questionSubmitQueryRequest.getUserId();
         String userAccount = questionSubmitQueryRequest.getUserAccount();
         String sortField = questionSubmitQueryRequest.getSortField();
@@ -123,6 +124,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         queryWrapper.eq(StringUtils.isNotBlank(language), "language", language);
         queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "userId", userId);
         queryWrapper.eq(ObjectUtils.isNotEmpty(questionId), "questionId", questionId);
+        //queryWrapper.eq(ObjectUtils.isNotEmpty(questionIdStr), "questionIdStr", questionIdStr);
         queryWrapper.eq(ObjectUtils.isNotEmpty(userAccount), "userAccount", userAccount);
         queryWrapper.eq(QuestionSubmitStatusEnum.getEnumByValue(status) != null, "status", status);
         queryWrapper.eq("isDelete", false);

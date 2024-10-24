@@ -25,8 +25,11 @@
       @page-change="onPageChange"
     >
       <template #tags="{ record }">
-        <a-space wrap>
-          <a-tag v-for="(tag, index) of record.tags" :key="index" color="red"
+        <a-space>
+          <a-tag
+            v-for="(tag, index) of record.tags"
+            :key="index"
+            :color="handleColor(record.tags[index])"
             >{{ tag }}
           </a-tag>
         </a-space>
@@ -55,7 +58,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watchEffect } from "vue";
 import {
-  Page_Question_,
   Question,
   QuestionControllerService,
   QuestionQueryRequest,
@@ -136,6 +138,21 @@ const onPageChange = (page: number) => {
   };
 };
 
+/**
+ * 不同难度对应不同的标签
+ * @param record
+ */
+const handleColor = (record: any): string => {
+  if (record === "困难") {
+    return "red";
+  } else if (record === "中等") {
+    return "orange";
+  } else if (record === "简单") {
+    return "green";
+  } else {
+    return "cyan";
+  }
+};
 const router = useRouter();
 
 /**

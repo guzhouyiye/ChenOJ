@@ -7,12 +7,12 @@
       <a-form-item field="language" label="编程语言" style="min-width: 240px">
         <a-select
           v-model="searchParams.language"
-          :style="{ width: '320px' }"
+          :style="{ width: '200px' }"
           placeholder="选择编程语言"
         >
-          <a-option>java</a-option>
-          <a-option>cpp</a-option>
-          <a-option>go</a-option>
+          <a-option value="java">java</a-option>
+          <a-option value="cpp">cpp</a-option>
+          <a-option value="go">go</a-option>
         </a-select>
       </a-form-item>
       <a-form-item>
@@ -33,17 +33,22 @@
       @page-change="onPageChange"
     >
       <template #judgeInfo="{ record }">
-        {{ JSON.stringify(record.judgeInfo) }}
+        <a-tag :color="handleColor(record.judgeInfo?.message)">
+          {{ record?.judgeInfo?.message || "Compile_Error" }}
+        </a-tag>
+      </template>
+      <template #status="{ record }">
+        {{ record?.status === 2 ? "判题成功" : "判题失败" }}
       </template>
       <template #createTime="{ record }">
-        {{ moment(record.createTime).format("YYYY-MM-DD") }}
+        {{ moment(record.createTime).format("YYYY-MM-DD HH:mm:ss") }}
       </template>
     </a-table>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watchEffect } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
 import {
   Question,
   QuestionControllerService,
@@ -58,7 +63,7 @@ const tableRef = ref();
 const dataList = ref([]);
 const total = ref(0);
 const searchParams = ref<QuestionSubmitQueryRequest>({
-  questionId: undefined,
+  questionId: undefined, // 这里保持为 string | undefined
   language: undefined,
   pageSize: 10,
   current: 1,
@@ -110,6 +115,7 @@ const columns = [
   {
     title: "判题状态",
     dataIndex: "status",
+    slotName: "status",
   },
   {
     title: "题目 id",
@@ -124,6 +130,10 @@ const columns = [
     slotName: "createTime",
   },
 ];
+
+const handleColor = (record: any): string => {
+  return record === "Accepted" ? "green" : "red";
+};
 
 const onPageChange = (page: number) => {
   searchParams.value = {
