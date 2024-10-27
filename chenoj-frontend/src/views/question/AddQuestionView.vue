@@ -2,10 +2,8 @@
   <div id="addQuestionView">
     <h2>{{ updatePage ? "修改题目" : "创建题目" }}</h2>
     <a-form :model="form" label-align="left">
-      <a-form-item>
-        <a-form-item field="title" label="标题">
-          <a-input v-model="form.title" placeholder="请输入标题" />
-        </a-form-item>
+      <a-form-item field="title" label="标题">
+        <a-input v-model="form.title" placeholder="请输入标题" />
       </a-form-item>
       <a-form-item field="tags" label="标签">
         <a-input-tag v-model="form.tags" placeholder="请选择标签" allow-clear />

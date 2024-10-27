@@ -1,6 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
 import HomeView from "@/views/ExampleView.vue";
-import AdminView from "@/views/AdminView.vue";
 import NoAuthView from "@/views/NoAuthView.vue";
 import ACCESS_ENUM from "@/access/accessEnum";
 import UserRegisterView from "@/views/user/UserRegisterView.vue";
@@ -11,6 +10,8 @@ import ManageQuestionView from "@/views/question/ManageQuestionView.vue";
 import QuestionsView from "@/views/question/QuestionsView.vue";
 import QuestionSubmitView from "@/views/question/QuestionSubmitView.vue";
 import ViewQuestionView from "@/views/question/ViewQuestionView.vue";
+import UserCenterView from "@/views/user/UserCenterView.vue";
+import UserManageView from "@/views/user/UserManageView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -27,6 +28,11 @@ export const routes: Array<RouteRecordRaw> = [
         path: "/user/register",
         name: "用户注册",
         component: UserRegisterView,
+      },
+      {
+        path: "/user/center",
+        name: "用户中心",
+        component: UserCenterView,
       },
     ],
     meta: {
@@ -74,6 +80,14 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/manage/question",
     name: "管理题目",
     component: ManageQuestionView,
+    meta: {
+      access: ACCESS_ENUM.ADMIN,
+    },
+  },
+  {
+    path: "/manage/user",
+    name: "用户管理",
+    component: UserManageView,
     meta: {
       access: ACCESS_ENUM.ADMIN,
     },

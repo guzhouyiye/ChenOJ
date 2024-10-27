@@ -3238,6 +3238,9 @@
           "type": "string",
           "format": "date-time"
         },
+        "gender": {
+          "type": "string"
+        },
         "id": {
           "type": "integer",
           "format": "int64"
@@ -4267,6 +4270,9 @@
           "type": "string",
           "format": "date-time"
         },
+        "gender": {
+          "type": "string"
+        },
         "id": {
           "type": "integer",
           "format": "int64"
@@ -4393,6 +4399,9 @@
     "UserUpdateMyRequest": {
       "type": "object",
       "properties": {
+        "gender": {
+          "type": "string"
+        },
         "userAvatar": {
           "type": "string"
         },
@@ -4433,6 +4442,9 @@
         "createTime": {
           "type": "string",
           "format": "date-time"
+        },
+        "gender": {
+          "type": "string"
         },
         "id": {
           "type": "integer",

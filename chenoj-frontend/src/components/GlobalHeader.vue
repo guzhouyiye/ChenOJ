@@ -54,7 +54,7 @@
                   <icon-idcard />
                 </template>
                 <template #default>
-                  <a-anchor-link>个人信息</a-anchor-link>
+                  <a-anchor-link @click="usercenter">个人信息</a-anchor-link>
                 </template>
               </a-doption>
               <a-doption>
@@ -123,6 +123,10 @@ const visibleRoutes = computed(() => {
 
 //默认主页
 const selectedKeys = ref(["/"]);
+
+const usercenter = () => {
+  router.push("/user/center");
+};
 
 const logout = () => {
   UserControllerService.userLogoutUsingPost();
