@@ -9,6 +9,8 @@ import com.chen.chenoj.model.entity.QuestionSubmit;
 import com.chen.chenoj.model.entity.User;
 import com.chen.chenoj.model.vo.QuestionSubmitVO;
 
+import java.util.List;
+
 /**
 * @author chen
 * @description 针对表【question_submit(题目提交)】的数据库操作Service
@@ -47,4 +49,12 @@ public interface QuestionSubmitService extends IService<QuestionSubmit> {
      * @return
      */
     Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage, User loginUser);
+
+    /**
+     * 获取提交列表封装
+     * @param questionSubmitList
+     * @param loginUser
+     * @return
+     */
+    List<QuestionSubmitVO> getQuestionSubmitVOList(List<QuestionSubmit> questionSubmitList, User loginUser);
 }

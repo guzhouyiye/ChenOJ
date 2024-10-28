@@ -15,6 +15,7 @@ import com.chen.chenoj.model.entity.User;
 import com.chen.chenoj.model.enums.QuestionSubmitLanguageEnum;
 import com.chen.chenoj.model.enums.QuestionSubmitStatusEnum;
 import com.chen.chenoj.model.vo.QuestionSubmitVO;
+import com.chen.chenoj.model.vo.QuestionVO;
 import com.chen.chenoj.service.QuestionService;
 import com.chen.chenoj.service.QuestionSubmitService;
 import com.chen.chenoj.service.UserService;
@@ -27,6 +28,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -136,6 +138,9 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     @Override
     public QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, User loginUser) {
         QuestionSubmitVO questionSubmitVO = QuestionSubmitVO.objToVo(questionSubmit);
+        Question question = questionService.getById(questionSubmit.getQuestionId());
+        questionSubmitVO.setQuestionVO(QuestionVO.objToVo(question));
+        questionSubmitVO.setUserVO(userService.getUserVO(loginUser));
         //脱敏：仅本人和管理员能看见自己（提交 userId 和登录用户 id 不同） 提交的代码
         long userId = loginUser.getId();
         //处理脱敏
@@ -157,6 +162,16 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
                 .collect(Collectors.toList());
         questionSubmitVOPage.setRecords(questionSubmitVOList);
         return questionSubmitVOPage;
+    }
+
+    @Override
+    public List<QuestionSubmitVO> getQuestionSubmitVOList(List<QuestionSubmit> questionSubmitList, User loginUser) {
+        ArrayList<QuestionSubmitVO> questionSubmitListVo = new ArrayList<>();
+        questionSubmitList.forEach(questionSubmit -> {
+            QuestionSubmitVO questionSubmitVO = getQuestionSubmitVO(questionSubmit, loginUser);
+            questionSubmitListVo.add(questionSubmitVO);
+        });
+        return questionSubmitListVo;
     }
 
 }

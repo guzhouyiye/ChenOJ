@@ -43,6 +43,16 @@
       <template #createTime="{ record }">
         {{ moment(record.createTime).format("YYYY-MM-DD HH:mm:ss") }}
       </template>
+      <template #optional="{ record }">
+        <a-space>
+          <a-button
+            type="primary"
+            v-if="loginUser.id === record.userId"
+            @click="toQuestionPage(record)"
+            >查看详情
+          </a-button>
+        </a-space>
+      </template>
     </a-table>
   </div>
 </template>
@@ -57,11 +67,13 @@ import {
 import message from "@arco-design/web-vue/es/message";
 import { useRouter } from "vue-router";
 import moment from "moment";
+import store from "@/store";
 
 const tableRef = ref();
 
 const dataList = ref([]);
 const total = ref(0);
+const loginUser = store.state.user.loginUser;
 const searchParams = ref<QuestionSubmitQueryRequest>({
   questionId: undefined, // 这里保持为 string | undefined
   language: undefined,
@@ -129,6 +141,10 @@ const columns = [
     title: "提交时间",
     slotName: "createTime",
   },
+  {
+    title: "操作",
+    slotName: "optional",
+  },
 ];
 
 const handleColor = (record: any): string => {
@@ -150,7 +166,7 @@ const router = useRouter();
  */
 const toQuestionPage = (question: Question) => {
   router.push({
-    path: `/view/question/${question.id}`,
+    path: `/submissions/detail/${question.id}`,
   });
 };
 

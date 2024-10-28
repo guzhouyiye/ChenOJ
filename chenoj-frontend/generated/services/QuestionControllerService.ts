@@ -3,11 +3,14 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { BaseResponse_boolean_ } from '../models/BaseResponse_boolean_';
+import type { BaseResponse_List_QuestionSubmitVO_ } from '../models/BaseResponse_List_QuestionSubmitVO_';
+import type { BaseResponse_List_string_ } from '../models/BaseResponse_List_string_';
 import type { BaseResponse_long_ } from '../models/BaseResponse_long_';
 import type { BaseResponse_Page_Question_ } from '../models/BaseResponse_Page_Question_';
 import type { BaseResponse_Page_QuestionSubmitVO_ } from '../models/BaseResponse_Page_QuestionSubmitVO_';
 import type { BaseResponse_Page_QuestionVO_ } from '../models/BaseResponse_Page_QuestionVO_';
 import type { BaseResponse_Question_ } from '../models/BaseResponse_Question_';
+import type { BaseResponse_QuestionSubmitVO_ } from '../models/BaseResponse_QuestionSubmitVO_';
 import type { BaseResponse_QuestionVO_ } from '../models/BaseResponse_QuestionVO_';
 import type { DeleteRequest } from '../models/DeleteRequest';
 import type { QuestionAddRequest } from '../models/QuestionAddRequest';
@@ -128,6 +131,22 @@ export class QuestionControllerService {
         });
     }
     /**
+     * getAllLanguages
+     * @returns BaseResponse_List_string_ OK
+     * @throws ApiError
+     */
+    public static getAllLanguagesUsingGet(): CancelablePromise<BaseResponse_List_string_> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/question/languages',
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+    /**
      * listQuestionByPage
      * @param questionQueryRequest questionQueryRequest
      * @returns BaseResponse_Page_Question_ OK
@@ -212,6 +231,28 @@ export class QuestionControllerService {
         });
     }
     /**
+     * getJudgeResult
+     * @param id id
+     * @returns BaseResponse_QuestionSubmitVO_ OK
+     * @throws ApiError
+     */
+    public static getJudgeResultUsingGet(
+        id?: number,
+    ): CancelablePromise<BaseResponse_QuestionSubmitVO_> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/question/question_submit/get/id',
+            query: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+    /**
      * listQuestionSubmitByPage
      * @param questionSubmitQueryRequest questionSubmitQueryRequest
      * @returns BaseResponse_Page_QuestionSubmitVO_ OK
@@ -224,6 +265,27 @@ export class QuestionControllerService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/question_submit/list/page',
+            body: questionSubmitQueryRequest,
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+    /**
+     * listMyQuestionSubmitVORecord
+     * @param questionSubmitQueryRequest questionSubmitQueryRequest
+     * @returns BaseResponse_List_QuestionSubmitVO_ OK
+     * @returns any Created
+     * @throws ApiError
+     */
+    public static listMyQuestionSubmitVoRecordUsingPost(
+        questionSubmitQueryRequest: QuestionSubmitQueryRequest,
+    ): CancelablePromise<BaseResponse_List_QuestionSubmitVO_ | any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/question/question_submit/my_record/list/vo',
             body: questionSubmitQueryRequest,
             errors: {
                 401: `Unauthorized`,

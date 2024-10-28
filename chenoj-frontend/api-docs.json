@@ -1484,6 +1484,56 @@
         "x-order": "2147483647"
       }
     },
+    "/api/question/languages": {
+      "get": {
+        "tags": [
+          "question-controller"
+        ],
+        "summary": "getAllLanguages",
+        "operationId": "getAllLanguagesUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "BaseResponse«List«string»»",
+              "$ref": "#/definitions/BaseResponse«List«string»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "responsesObject": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "BaseResponse«List«string»»",
+              "$ref": "#/definitions/BaseResponse«List«string»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "x-order": "2147483647"
+      }
+    },
     "/api/question/list/page": {
       "post": {
         "tags": [
@@ -1768,6 +1818,66 @@
         "x-order": "2147483647"
       }
     },
+    "/api/question/question_submit/get/id": {
+      "get": {
+        "tags": [
+          "question-controller"
+        ],
+        "summary": "getJudgeResult",
+        "operationId": "getJudgeResultUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "BaseResponse«QuestionSubmitVO»",
+              "$ref": "#/definitions/BaseResponse«QuestionSubmitVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "responsesObject": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "BaseResponse«QuestionSubmitVO»",
+              "$ref": "#/definitions/BaseResponse«QuestionSubmitVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "x-order": "2147483647"
+      }
+    },
     "/api/question/question_submit/list/page": {
       "post": {
         "tags": [
@@ -1820,6 +1930,77 @@
             "schema": {
               "originalRef": "BaseResponse«Page«QuestionSubmitVO»»",
               "$ref": "#/definitions/BaseResponse«Page«QuestionSubmitVO»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "x-order": "2147483647"
+      }
+    },
+    "/api/question/question_submit/my_record/list/vo": {
+      "post": {
+        "tags": [
+          "question-controller"
+        ],
+        "summary": "listMyQuestionSubmitVORecord",
+        "operationId": "listMyQuestionSubmitVORecordUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "questionSubmitQueryRequest",
+            "description": "questionSubmitQueryRequest",
+            "required": true,
+            "schema": {
+              "originalRef": "QuestionSubmitQueryRequest",
+              "$ref": "#/definitions/QuestionSubmitQueryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "BaseResponse«List«QuestionSubmitVO»»",
+              "$ref": "#/definitions/BaseResponse«List«QuestionSubmitVO»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "responsesObject": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "BaseResponse«List«QuestionSubmitVO»»",
+              "$ref": "#/definitions/BaseResponse«List«QuestionSubmitVO»»"
             }
           },
           "201": {
@@ -2887,6 +3068,45 @@
     }
   },
   "definitions": {
+    "BaseResponse«List«QuestionSubmitVO»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "originalRef": "QuestionSubmitVO",
+            "$ref": "#/definitions/QuestionSubmitVO"
+          }
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«List«QuestionSubmitVO»»"
+    },
+    "BaseResponse«List«string»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«List«string»»"
+    },
     "BaseResponse«LoginUserVO»": {
       "type": "object",
       "properties": {
@@ -3039,6 +3259,23 @@
         }
       },
       "title": "BaseResponse«PostVO»"
+    },
+    "BaseResponse«QuestionSubmitVO»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "originalRef": "QuestionSubmitVO",
+          "$ref": "#/definitions/QuestionSubmitVO"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«QuestionSubmitVO»"
     },
     "BaseResponse«QuestionVO»": {
       "type": "object",

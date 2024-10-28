@@ -2,6 +2,7 @@ package com.chen.chenoj.controller;
 
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.chen.chenoj.model.enums.QuestionSubmitLanguageEnum;
 import com.google.gson.Gson;
 import com.chen.chenoj.annotation.AuthCheck;
 import com.chen.chenoj.common.BaseResponse;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -330,6 +332,56 @@ public class QuestionController {
         final User loginUser = userService.getLoginUser(request);
         //返回脱敏信息
         return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage,loginUser));
+    }
+
+    /**
+     * 获取判题结构
+     * @param id
+     * @param request
+     * @return
+     */
+    @GetMapping("/question_submit/get/id")
+    public BaseResponse<QuestionSubmitVO> getJudgeResult(Long id, HttpServletRequest request) {
+        User loginUser = userService.getLoginUser(request);
+        if (id <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        QuestionSubmit questionSubmit = questionSubmitService.getById(id);
+        if (questionSubmit == null) {
+            //不存在，直接报错，返回一个空
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "提交答案不存在");
+        }
+        QuestionSubmitVO questionCommentVO = questionSubmitService.getQuestionSubmitVO(questionSubmit, loginUser);
+        return ResultUtils.success(questionCommentVO);
+    }
+
+    /**
+     * 返回对应语言的枚举值给前端
+     *
+     * @return
+     */
+    @GetMapping("/languages")
+    public BaseResponse<List<String>> getAllLanguages() {
+        List<String> statusMap = new ArrayList<>();
+        for (QuestionSubmitLanguageEnum status : QuestionSubmitLanguageEnum.values()) {
+            statusMap.add(status.getValue());
+        }
+        return ResultUtils.success(statusMap);
+    }
+
+    @PostMapping("question_submit/my_record/list/vo")
+    public BaseResponse<List<QuestionSubmitVO>> listMyQuestionSubmitVORecord(@RequestBody QuestionSubmitQueryRequest questionSubmitQueryRequest, HttpServletRequest request) {
+        User loginUser = userService.getLoginUser(request);
+        questionSubmitQueryRequest.setUserId(loginUser.getId());
+
+        // 获取所有 QuestionSubmit 记录
+        List<QuestionSubmit> questionSubmitList = questionSubmitService.list(questionSubmitService.getQueryWrapper(questionSubmitQueryRequest));
+
+        // 将 QuestionSubmit 列表转换为 QuestionSubmitVO 列表
+        List<QuestionSubmitVO> questionSubmitVOList = questionSubmitService.getQuestionSubmitVOList(questionSubmitList, loginUser);
+
+        // 返回数据
+        return ResultUtils.success(questionSubmitVOList);
     }
 
 }

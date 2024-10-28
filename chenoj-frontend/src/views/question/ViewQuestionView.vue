@@ -25,7 +25,9 @@
                   <a-tag
                     v-for="(tag, index) of question.tags"
                     :key="index"
-                    color="red"
+                    :color="
+                      handleColor(question.tags ? question.tags[index] : '')
+                    "
                     >{{ tag }}
                   </a-tag>
                 </a-space>
@@ -95,6 +97,22 @@ const loadData = async () => {
     question.value = res.data;
   } else {
     message.error("加载失败，" + res.message);
+  }
+};
+
+/**
+ * 不同难度对应不同的标签
+ * @param record
+ */
+const handleColor = (record: any): string => {
+  if (record === "困难") {
+    return "red";
+  } else if (record === "中等") {
+    return "orange";
+  } else if (record === "简单") {
+    return "green";
+  } else {
+    return "cyan";
   }
 };
 
