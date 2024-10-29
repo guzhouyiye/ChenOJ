@@ -1,11 +1,15 @@
 package com.chen.chenojcodesandbox.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 判题信息
  */
+@NoArgsConstructor
 @Data
+@AllArgsConstructor
 public class JudgeInfo {
 
     /**

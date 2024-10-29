@@ -13,8 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ExecuteCodeResponse {
 
-    private List<String> outputList;
-
     /**
      * 接口信息
      */
@@ -24,6 +22,11 @@ public class ExecuteCodeResponse {
      * 执行状态
      */
     private Integer status;
+
+    /**
+     * 判题配置
+     */
+    private List<String> outputList;
 
     /**
      * 判题信息
