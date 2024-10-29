@@ -22,4 +22,14 @@ public class JudgeInfo {
      * 消耗时间（ms）
      */
     private Long time;
+
+    /**
+     * 通过的案例数
+     */
+    private Integer passNum;
+
+    /**
+     * 总案例数
+     */
+    private Integer totalNum;
 }

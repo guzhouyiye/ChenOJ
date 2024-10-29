@@ -15,59 +15,59 @@ import java.util.Optional;
  */
 public class JavaLanguageJudgeStrategy implements JudgeStrategy {
 
-    /**
-     * 执行判题
-     * @param judgeContext
-     * @return
-     */
+    final long JAVA_COST = 1000L;
+
     @Override
     public JudgeInfo doJudge(JudgeContext judgeContext) {
-
         JudgeInfo judgeInfo = judgeContext.getJudgeInfo();
-        Long memory = Optional.ofNullable(judgeInfo.getMemory()).orElse(0L);
-        Long time = Optional.ofNullable(judgeInfo.getTime()).orElse(0L);
         List<String> inputList = judgeContext.getInputList();
         List<String> outputList = judgeContext.getOutputList();
-        Question question = judgeContext.getQuestion();
         List<JudgeCase> judgeCaseList = judgeContext.getJudgeCaseList();
+        Question question = judgeContext.getQuestion();
         JudgeInfoMessageEnum judgeInfoMessageEnum = JudgeInfoMessageEnum.ACCEPTED;
-        JudgeInfo judgeInfoResponse = new JudgeInfo();
-        judgeInfoResponse.setMemory(memory);
-        judgeInfoResponse.setTime(time);
-
-        //先判断沙箱执行的结果输出数量是否和预期数量相等
-        if(outputList.size() != inputList.size()){
+        //获取内存，没有获取到就设置默认值
+        Long memory = Optional.ofNullable(judgeInfo.getMemory()).orElse(0L) / 1024;
+        Long time = Optional.ofNullable(judgeInfo.getTime()).orElse(0L);
+        judgeInfo.setMemory(memory);
+        judgeInfo.setTime(time);
+        judgeInfo.setTotalNum(inputList.size());
+        //判断输入输出是否匹配
+        if (outputList.size() != inputList.size()) {
             judgeInfoMessageEnum = JudgeInfoMessageEnum.WRONG_ANSWER;
-            judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
-            return judgeInfoResponse;
+            judgeInfo.setMessage(judgeInfoMessageEnum.getValue());
+            //通过了几个就是几个
+            judgeInfo.setPassNum(0);
+            return judgeInfo;
         }
-        //依次判断每一项输出和预期输出是否相等
-        for(int i = 0 ; i < judgeCaseList.size() ; i++){
+        //根据沙箱执行执行结果设置题目状态和信息
+        for (int i = 0; i < judgeCaseList.size(); i++) {
             JudgeCase judgeCase = judgeCaseList.get(i);
-            if (!judgeCase.getOutput().equals(outputList.get(i))){
+            if (!judgeCase.getOutput().equals(outputList.get(i))) {
                 judgeInfoMessageEnum = JudgeInfoMessageEnum.WRONG_ANSWER;
-                judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
-                return judgeInfoResponse;
+                judgeInfo.setMessage(judgeInfoMessageEnum.getValue());
+                judgeInfo.setPassNum(i);
+                return judgeInfo;
             }
         }
+        judgeInfo.setPassNum(outputList.size());
         //判断题目限制
         String judgeConfigStr = question.getJudgeConfig();
         JudgeConfig judgeConfig = JSONUtil.toBean(judgeConfigStr, JudgeConfig.class);
-        Long needMemoryLimit = judgeConfig.getTimeLimit();
         Long needTimeLimit = judgeConfig.getTimeLimit();
-        if(memory > needMemoryLimit){
+        Long needMemoryLimit = judgeConfig.getMemoryLimit();
+        //如果题目执行返回的内存和时间超过题目限制，就返回超时
+        if (memory > needMemoryLimit) {
             judgeInfoMessageEnum = JudgeInfoMessageEnum.MEMORY_LIMIT_EXCEEDED;
-            judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
-            return judgeInfoResponse;
+            judgeInfo.setMessage(judgeInfoMessageEnum.getValue());
+            return judgeInfo;
         }
-        //java程序本身需要额外执行 10 秒钟
-        long JAVA_PROGRAM_TIME_COST = 10000L;
-        if((time - JAVA_PROGRAM_TIME_COST) > needTimeLimit){
+
+        if (time - JAVA_COST > needTimeLimit) {
             judgeInfoMessageEnum = JudgeInfoMessageEnum.TIME_LIMIT_EXCEEDED;
-            judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
-            return judgeInfoResponse;
+            judgeInfo.setMessage(judgeInfoMessageEnum.getValue());
+            return judgeInfo;
         }
-        judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
-        return judgeInfoResponse;
+        judgeInfo.setMessage(judgeInfoMessageEnum.getValue());
+        return judgeInfo;
     }
 }

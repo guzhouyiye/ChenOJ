@@ -36,6 +36,9 @@
           </a-tab-pane>
           <a-tab-pane key="comment" title="评论" disabled> 评论区 </a-tab-pane>
           <a-tab-pane key="answer" title="题解"> 暂时无法查看答案 </a-tab-pane>
+          <a-tab-pane key="mySubmit" title="提交记录">
+            <SubmissionRecord :shouldReload="shouldReload" />
+          </a-tab-pane>
         </a-tabs>
       </a-col>
       <a-col :md="12" :xs="24">
@@ -78,7 +81,9 @@ import message from "@arco-design/web-vue/es/message";
 import CodeEditor from "@/components/CodeEditor.vue";
 import MdEditor from "@/components/MdEditor.vue";
 import MdViewer from "@/components/MdViewer.vue";
+import SubmissionRecord from "@/components/SubmissionRecord.vue";
 
+const shouldReload = ref(false);
 interface Props {
   id: string;
 }

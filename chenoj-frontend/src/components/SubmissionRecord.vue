@@ -150,7 +150,7 @@ const columns = [
 
 const statusColor = (status: string) => {
   switch (status) {
-    case "通过":
+    case "Accepted":
       return "green";
     default:
       return "red";

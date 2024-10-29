@@ -75,6 +75,11 @@ public class Question implements Serializable {
     private Long userId;
 
     /**
+     * 创建题目的用户账号
+     */
+    private String userAccount;
+
+    /**
      * 创建时间
      */
     private Date createTime;

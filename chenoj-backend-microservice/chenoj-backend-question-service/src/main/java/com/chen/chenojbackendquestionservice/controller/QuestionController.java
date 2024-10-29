@@ -80,6 +80,7 @@ public class QuestionController {
         questionService.validQuestion(question, true);
         User loginUser = userFeignClient.getLoginUser(request);
         question.setUserId(loginUser.getId());
+        question.setUserAccount(loginUser.getUserAccount());
         question.setFavourNum(0);
         question.setThumbNum(0);
         boolean result = questionService.save(question);
