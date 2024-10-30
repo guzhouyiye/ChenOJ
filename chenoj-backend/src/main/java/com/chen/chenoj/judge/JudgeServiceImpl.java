@@ -1,5 +1,6 @@
 package com.chen.chenoj.judge;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
 import com.chen.chenoj.exception.BusinessException;
 import com.chen.chenoj.judge.codesandbox.CodeSandbox;
@@ -12,6 +13,7 @@ import com.chen.chenoj.judge.strategy.JudgeContext;
 import com.chen.chenoj.model.dto.question.JudgeCase;
 import com.chen.chenoj.model.entity.Question;
 import com.chen.chenoj.model.entity.QuestionSubmit;
+import com.chen.chenoj.model.enums.JudgeInfoMessageEnum;
 import com.chen.chenoj.model.enums.QuestionSubmitStatusEnum;
 import com.chen.chenoj.service.QuestionService;
 import com.chen.chenoj.service.QuestionSubmitService;
@@ -54,7 +56,7 @@ public class JudgeServiceImpl implements JudgeService {
         if(!questionSubmit.getStatus().equals(QuestionSubmitStatusEnum.WAITING.getValue())) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "题目正在判题中");
         }
-        //3)更改判题（题目提交）的状态为“判题中”，防止重复执行
+        //3.更改判题（题目提交）的状态为“判题中”，防止重复执行
         QuestionSubmit questionSubmitUpdate = new QuestionSubmit();
         questionSubmitUpdate.setId(questionSubmitId);
         questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.RUNNING.getValue());
@@ -87,15 +89,35 @@ public class JudgeServiceImpl implements JudgeService {
         judgeContext.setQuestion(question);
         judgeContext.setQuestionSubmit(questionSubmit);
         JudgeInfo judgeInfo = judgeManager.doJudge(judgeContext);
+
+
         //6)修改数据库的判题结果
         questionSubmitUpdate = new QuestionSubmit();
         questionSubmitUpdate.setId(questionSubmitId);
-        questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.SUCCEED.getValue());
+
+
+        // 修改判题状态
+        if (JudgeInfoMessageEnum.ACCEPTED.getValue().equals(judgeInfo.getMessage())) {
+            questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.SUCCEED.getValue());
+            // 修改题目通过数
+            question.setAcceptedNum(ObjectUtil.defaultIfNull(question.getAcceptedNum(), 0) + 1);
+        } else {
+            questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.FAILED.getValue());
+        }
+
         questionSubmitUpdate.setJudgeInfo(JSONUtil.toJsonStr(judgeInfo));
         update = questionSubmitService.updateById(questionSubmitUpdate);
         if(!update){
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目状态更新错误");
         }
+
+        // 修改题目提交数
+        question.setSubmitNum(ObjectUtil.defaultIfNull(question.getSubmitNum(), 0) + 1);
+        boolean questionUpdate = questionService.updateById(question);
+        if (!questionUpdate) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目提交数更新错误");
+        }
+
         QuestionSubmit questionSubmitResult = questionSubmitService.getById(questionId);
         return questionSubmitResult;
     }

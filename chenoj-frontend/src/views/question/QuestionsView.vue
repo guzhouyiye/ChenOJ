@@ -35,11 +35,19 @@
         </a-space>
       </template>
       <template #acceptedRate="{ record }">
-        {{
-          `${
-            record.submitNum ? record.acceptedNum / record.submitNum : "0"
-          }% (${record.acceptedNum}/${record.submitNum})`
-        }}
+        <div style="display: flex; align-items: center; flex-direction: row">
+          <a-progress
+            :percent="
+              record.submitNum
+                ? +(record.acceptedNum / record.submitNum).toFixed(3)
+                : 0
+            "
+            :style="{ width: '120%' }"
+          />
+          <span style="margin-left: 8px; white-space: nowrap">
+            ({{ record.acceptedNum }}/{{ record.submitNum }})
+          </span>
+        </div>
       </template>
       <template #createTime="{ record }">
         {{ moment(record.createTime).format("YYYY-MM-DD") }}</template
