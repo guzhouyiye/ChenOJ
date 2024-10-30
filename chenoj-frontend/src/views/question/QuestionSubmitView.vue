@@ -161,7 +161,7 @@ const onPageChange = (page: number) => {
 const router = useRouter();
 
 /**
- * 跳转到做题页面
+ * 跳转到提交详情页面
  * @param question
  */
 const toQuestionPage = (question: Question) => {

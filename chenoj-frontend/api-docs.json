@@ -3461,9 +3461,17 @@
         "message": {
           "type": "string"
         },
+        "passNum": {
+          "type": "integer",
+          "format": "int32"
+        },
         "time": {
           "type": "integer",
           "format": "int64"
+        },
+        "totalNum": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "title": "JudgeInfo"
@@ -4448,6 +4456,9 @@
         "acceptedNum": {
           "type": "integer",
           "format": "int32"
+        },
+        "answer": {
+          "type": "string"
         },
         "content": {
           "type": "string"

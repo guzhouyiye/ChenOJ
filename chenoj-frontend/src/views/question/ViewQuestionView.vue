@@ -35,7 +35,12 @@
             </a-card>
           </a-tab-pane>
           <a-tab-pane key="comment" title="评论" disabled> 评论区 </a-tab-pane>
-          <a-tab-pane key="answer" title="题解"> 暂时无法查看答案 </a-tab-pane>
+          <!--          <a-tab-pane key="answer" title="题解"> 暂时无法查看答案 </a-tab-pane>-->
+          <a-tab-pane key="answer" title="题解">
+            <div class="code-block-container">
+              <CodeBlock :codeText="question?.answer || '无答案'" />
+            </div>
+          </a-tab-pane>
           <a-tab-pane key="mySubmit" title="提交记录">
             <SubmissionRecord :shouldReload="shouldReload" />
           </a-tab-pane>
@@ -82,7 +87,9 @@ import CodeEditor from "@/components/CodeEditor.vue";
 import MdEditor from "@/components/MdEditor.vue";
 import MdViewer from "@/components/MdViewer.vue";
 import SubmissionRecord from "@/components/SubmissionRecord.vue";
+import CodeBlock from "@/components/CodeBlock.vue";
 
+const question = ref<QuestionVO>();
 const shouldReload = ref(false);
 interface Props {
   id: string;
@@ -92,14 +99,13 @@ const props = withDefaults(defineProps<Props>(), {
   id: () => "",
 });
 
-const question = ref<QuestionVO>();
-
 const loadData = async () => {
   const res = await QuestionControllerService.getQuestionVoByIdUsingGet(
     props.id as any
   );
   if (res.code === 0) {
     question.value = res.data;
+    console.log("获取到的题目数据:", question.value);
   } else {
     message.error("加载失败，" + res.message);
   }
